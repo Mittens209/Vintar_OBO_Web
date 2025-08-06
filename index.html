@@ -244,7 +244,7 @@
                     <p>Complete checklist of all needed documents</p>
                     <a href="rizal poem.pdf" class="download-btn">Download PDF</a>
                 </div>
-                    
+
                 <div class="download-item">
                     <div class="file-icon">📄</div>
                     <h3>Vicinity Map Template</h3>
@@ -292,18 +292,23 @@
                 
                 <div class="contact-form">
                     <h3>Send Us a Message</h3>
-                    <form id="contactForm" action="process_form.php" method="POST">
+                    <form class="contact-form">
+                        <!-- Hidden Formspree fields -->
+                        <input type="hidden" name="_next" value="/thank-you.html">
+                        <input type="text" name="_gotcha" style="display:none">
+                        
+                        <!-- Your existing form fields (only email field modified) -->
                         <div class="form-group">
                             <label for="name">Full Name:</label>
                             <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address:</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="_replyto" required> <!-- Changed name to _replyto -->
                         </div>
                         <div class="form-group">
                             <label for="subject">Subject:</label>
-                            <input type="text" id="subject" name="subject" required>
+                            <input type="text" id="subject" name="_subject" required> <!-- Changed name to _subject -->
                         </div>
                         <div class="form-group">
                             <label for="message">Message:</label>
@@ -327,68 +332,10 @@
         <p>Engr. Jeannoel Dayne Miguel</p>
     </footer>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuToggle = document.createElement('div');
-        menuToggle.className = 'menu-toggle';
-        menuToggle.textContent = 'Menu';
-        document.querySelector('.main-nav').prepend(menuToggle);
-        
-        menuToggle.addEventListener('click', function() {
-            document.querySelector('.main-nav ul').classList.toggle('active');
-        });
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.main-nav a');
-
-    window.addEventListener('scroll', function() {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (pageYOffset >= (sectionTop - 300)) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
-});
-
-// Page load handler
-document.addEventListener('DOMContentLoaded', function() {
-  // Show content after everything loads
-  window.addEventListener('load', function() {
-    document.body.classList.add('loaded');
-    
-    // Additional component-specific animations
-    const components = document.querySelectorAll('section, header, nav, footer');
-    components.forEach((comp, index) => {
-      comp.style.animationDelay = `${0.1 * index}s`;
-    });
-  });
-});
-
-// Image loader
-document.querySelectorAll('img').forEach(img => {
-  if(img.complete) {
-    img.classList.add('loaded');
-  } else {
-    img.addEventListener('load', () => {
-      img.classList.add('loaded');
-    });
-  }
-});
-</script>
-
 <div class="loader"></div>
+  <script src="script.js">
+    import { FORMSPREE_URL } from './config.js';
+    document.getElementById('contactForm').action = FORMSPREE_URL;
+  </script>
 </body>
 </html>

@@ -58,3 +58,7 @@ img.addEventListener('load', () => {
 });
 }
 });
+
+document.querySelector('.contact-form').addEventListener('submit', function() {
+    this.querySelector('.submit-btn').textContent = 'Sending...';
+});
